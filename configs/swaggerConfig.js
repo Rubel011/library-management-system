@@ -10,6 +10,9 @@ const swaggerOptions = {
         },
         servers: [
             {
+                url: "http://3.84.245.69:8080",
+            },
+            {
                 url: "http://localhost:8080",
             }
         ]
