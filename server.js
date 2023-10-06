@@ -7,6 +7,8 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./configs/swaggerConfig');
 const { connection } = require('./configs/db');
 const { successResponse, errorResponse } = require('./helpers/successAndError');
+const userRouter = require('./routes/userRouter');
+const bookRouter = require('./routes/bookRouter');
 
 // Middleware to parse JSON request bodies
 app.use(express.json());
@@ -27,6 +29,11 @@ app.get("/", async (req, res) => {
     }
 });
 
+
+// all routes are here
+app.use("/users",userRouter)
+
+app.use("/books",bookRouter)
 
 // Start the server
 app.listen(port, async () => {
