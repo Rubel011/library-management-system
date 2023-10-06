@@ -31,11 +31,7 @@ userRouter.post("/register", addNewUser);
  */
 userRouter.post("/login", loginUser);
 
-/**
- * @route   GET /users/profile
- * @desc    Get user profile (protected route)
- * @access  Private
- */
+
 
 
 module.exports = userRouter;

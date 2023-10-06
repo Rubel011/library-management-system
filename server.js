@@ -9,6 +9,8 @@ const { connection } = require('./configs/db');
 const { successResponse, errorResponse } = require('./helpers/successAndError');
 const userRouter = require('./routes/userRouter');
 const bookRouter = require('./routes/bookRouter');
+const borrowingRouter = require('./routes/borrowingRouter');
+const recommendationRouter = require('./routes/recomandationRouter');
 
 // Middleware to parse JSON request bodies
 app.use(express.json());
@@ -34,6 +36,10 @@ app.get("/", async (req, res) => {
 app.use("/users",userRouter)
 
 app.use("/books",bookRouter)
+
+app.use("/borrow",borrowingRouter)
+
+// app.use("/recommendations",recommendationRouter)
 
 // Start the server
 app.listen(port, async () => {
