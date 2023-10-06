@@ -1,4 +1,4 @@
-# library-management-system
+# Library-management-system
 
 This is the library-management-system, where you can register, log in, and access restricted resources.
 
@@ -28,19 +28,25 @@ The backend of this project is deployed on AWS and can be accessed via the follo
 - **User Authentication**:
   - `POST /users/register`: Register a new user.
   - `POST /users/login`: Log in with a registered user.
-  - `GET /users/`: Get all user details .
+  - `GET /users/`: Get all user details (jwt protected) .
+- **Book Management**:
+  - `GET /books/`: List of all available books.
+  - `GET /books/search?{title=?,available=?}`: Update book details.
+  - `POST /books/`: Add a new book.
+  - `PUT /books/`: Update book details.
+  - `DELETE /books/`: Delete a book form database.
+- **Borrowing Book**:
+  - `POST /borrow/{:bookid}`: Borrow a new book (jwt prltected).
+  - `POST /borrow/return/{:bookid}`: Return a borrowed book.
+### Technologies Used
 
-## Getting Started
-
-These instructions will help you set up and run the QuadB Tech Node.js backend project on your local machine.
-
-### Prerequisites
-
-Before you begin, make sure you have the following software installed on your system:
-
-- Node.js (https://nodejs.org/)
-- mongodb 
-- Git (https://git-scm.com/)
+- Node.js 
+- Express.js
+- MongoDB
+- Mongoose
+- Bcrypt
+- JWT
+- Swagger (for API documentation)
 
 ### Installation
 
@@ -58,7 +64,7 @@ Before you begin, make sure you have the following software installed on your sy
 
 4. Create a .env file in the project root and configure the following environment variables:
     ```markdown
-   PORT=8080
+    PORT=8080
     mongoUrl=database link
     saltRounds=15
     ACCESS_TOKEN_SECRET=masai_school
