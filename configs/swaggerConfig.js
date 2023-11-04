@@ -1,5 +1,6 @@
 const swaggerJSDoc = require('swagger-jsdoc');
-
+require("dotenv").config()
+const BACKEND_DEPLOYED_URL=process.env.BACKEND_DEPLOYED_URL||"http://localhost:8080/"
 const swaggerOptions = {
     swaggerDefinition: {
         openapi: '3.0.0', // Specify the OpenAPI version
@@ -10,10 +11,7 @@ const swaggerOptions = {
         },
         servers: [
             {
-                url: "http://3.84.245.69:8080",
-            },
-            {
-                url: "http://localhost:8080",
+                url:BACKEND_DEPLOYED_URL,
             }
         ]
     },

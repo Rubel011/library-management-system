@@ -2,55 +2,71 @@ const express = require('express');
 const Book = require('../models/bookModel');
 const Borrowing = require('../models/borrowingModel');
 const { authenticateToken } = require('../middleware/authentication');
+const { errorResponse, successResponse } = require('../helpers/successAndError');
 const recommendationRouter = express.Router()
 
 // API endpoint to get book recommendations for a user
-recommendationRouter.get('/', authenticateToken,(req, res) => {
+recommendationRouter.get('/', authenticateToken,async (req, res) => {
     const userId = req.user.userId;
 
     try {
-        const recommendations = generateRecommendations(userId);
-        res.json(recommendations);
+        const recommendations = await generateRecommendations(userId);
+        res.status(200).json(successResponse(200,"Retrive recommendations for user successfully",recommendations));
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
 
-
 // Calculate user preferences based on genres
-function calculateGenrePreferences(userId) {
+async function calculateGenrePreferences(userId) {
+    try {
+        // Use async/await to await the result of the MongoDB query
+        const userBorrowings = await Borrowing.find({ userId });
 
-    const userBorrowings = Borrowing.find({ userId });
-    const genreCount = {};
+        let genreCount = {};
 
-    userBorrowings.forEach((borrowing) => {
-        const book = Book.findById(borrowing.bookId);
-        if (book && book.genre) {
-            genreCount[book.genre] = (genreCount[book.genre] || 0) + 1;
+        if (userBorrowings.length <= 0) return null;
+
+        // Use a for...of loop to iterate over userBorrowings
+        for (const borrowing of userBorrowings) {
+            // Use await when querying the Book collection
+            const book = await Book.findById(borrowing.bookId);
+            if (book && book.genre) {
+                genreCount[book.genre] = (genreCount[book.genre] || 0) + 1;
+            }
         }
-    });
+        // Sort the genres by borrowing count
+        const sortedGenres =Object.keys(genreCount).sort((a, b) => genreCount[b] - genreCount[a]);
 
-    // Sort the genres by borrowing count
-    const sortedGenres = Object.keys(genreCount).sort((a, b) => genreCount[b] - genreCount[a]);
-
-    return sortedGenres;
+        return sortedGenres;
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
 }
 
 // Generate book recommendations based on user preferences
-function generateRecommendations(userId) {
-    const userGenres = calculateGenrePreferences(userId);
+async function generateRecommendations(userId) {
+    try {
+        const userGenres = await calculateGenrePreferences(userId);
+        if (!userGenres) return errorResponse(500, "User id is not found");
 
-    // Find books with genres matching the user's top genre preferences
-    const recommendedBooks = [];
+        // Find books with genres matching the user's top genre preferences
+        const recommendedBooks = [];
 
-    userGenres.forEach((genre) => {
-        const books = Book.find({ genre, quantity: { $gt: 0 } }).limit(5);
-        recommendedBooks.push(...books);
-    });
+        for (const genre of userGenres) {
+            // Use await when querying the Book collection
+            const books = await Book.find({ genre, quantity: { $gt: 0 },available:true }).limit(5);
+            recommendedBooks.push(...books);
+        }
+        console.log(recommendedBooks);
 
-    return recommendedBooks;
+        return recommendedBooks;
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
 }
 
 
-
-module.exports=recommendationRouter;
+module.exports = recommendationRouter;

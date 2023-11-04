@@ -39,7 +39,7 @@ app.use("/books",bookRouter)
 
 app.use("/borrow",borrowingRouter)
 
-// app.use("/recommendations",recommendationRouter)
+app.use("/recommendations",recommendationRouter)
 
 // Start the server
 app.listen(port, async () => {

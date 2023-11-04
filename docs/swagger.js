@@ -25,7 +25,13 @@
  *           type: string
  *         avatarUrl:
  *           type: string
- *
+ *       required:
+ *         - name
+ *  
+ */
+
+/**
+ * @swagger
  * /users/:
  *   get:
  *     summary: Get user details by users
