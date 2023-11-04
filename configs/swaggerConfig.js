@@ -1,5 +1,6 @@
 const swaggerJSDoc = require('swagger-jsdoc');
 require("dotenv").config()
+const path=require('path');
 const BACKEND_DEPLOYED_URL=process.env.BACKEND_DEPLOYED_URL||"http://localhost:8080/"
 const swaggerOptions = {
     swaggerDefinition: {
@@ -16,7 +17,7 @@ const swaggerOptions = {
         ]
     },
     // Provide the path to your API routes files
-    apis: ['./docs/*.js'],
+    apis: [path.join(__dirname, '..', 'docs', 'swagger.js')],
 };
 
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
