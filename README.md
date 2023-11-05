@@ -6,7 +6,7 @@ This is the library-management system, where you can register, log in, and acces
 
 You can explore the API documentation using Swagger UI. Access the documentation by navigating to:
 
-   https://library-management-system-rubel011.vercel.app/api-docs
+https://library-management-system-five-red.vercel.app/api-docs
 
 ## Functionality
 
@@ -21,7 +21,7 @@ The API includes the following functionality:
 
 The backend of this project is deployed on AWS and can be accessed via the following link: 
 
-[Backend Deployment Link](https://library-management-system-rubel011.vercel.app/)
+[Backend Deployment Link](https://library-management-system-five-red.vercel.app/)
 
 
 ## Backend-Routes
