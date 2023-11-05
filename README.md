@@ -1,12 +1,12 @@
 # Library-management-system
 
-This is the library-management-system, where you can register, log in, and access restricted resources.
+This is the library-management system, where you can register, log in, and access restricted resources.
 
 ## API Documentation: for Swagger
 
 You can explore the API documentation using Swagger UI. Access the documentation by navigating to:
 
-   http://3.84.245.69:8080/api-docs
+   https://library-management-system-rubel011.vercel.app/api-docs
 
 ## Functionality
 
@@ -21,7 +21,7 @@ The API includes the following functionality:
 
 The backend of this project is deployed on AWS and can be accessed via the following link: 
 
-[Backend Deployment Link](http://3.84.245.69:8080/)
+[Backend Deployment Link](https://library-management-system-rubel011.vercel.app/)
 
 
 ## Backend-Routes
